@@ -1,6 +1,9 @@
 import { useDispatch } from 'react-redux'
-import { registerUser as registerUserAction } from '../reducers/auth'
-import { UserDataRegister } from '../../types'
+import {
+  registerUser as registerUserAction,
+  loginUser as loginUserAction,
+} from '../reducers/auth'
+import { UserData, UserDataRegister } from '../../types'
 
 export const useAuthActions = () => {
   const dispatch = useDispatch()
@@ -9,5 +12,9 @@ export const useAuthActions = () => {
     dispatch(registerUserAction(res))
   }
 
-  return { registerUser }
+  const loginUser = (res: UserData) => {
+    dispatch(loginUserAction(res))
+  }
+
+  return { registerUser, loginUser }
 }

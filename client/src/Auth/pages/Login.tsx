@@ -1,24 +1,23 @@
 import { useState } from 'react'
-import { UserDataRegister } from '../../types'
+import { UserData } from '../../types'
 import { useAuthActions } from '../hooks/authAction'
-import { registerReq } from '../services/auth'
+import { loginReq } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
-  const [formData, setFormData] = useState<UserDataRegister>({
-    username: '',
+  const [formData, setFormData] = useState<UserData>({
     email: '',
     password: '',
   })
-  const { registerUser } = useAuthActions()
+  const { loginUser } = useAuthActions()
   const navigate = useNavigate()
 
   const submitAuth = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     try {
-      const res = await registerReq(formData)
-      registerUser(res)
+      const res = await loginReq(formData)
+      loginUser(res)
       navigate('/dashboard')
     } catch (error) {
       console.log('Error happened', error)
@@ -28,14 +27,6 @@ const Register = () => {
   return (
     <div>
       <form onSubmit={submitAuth}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.username}
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
-        />
         <input
           type="email"
           placeholder="Email"
@@ -50,12 +41,11 @@ const Register = () => {
             setFormData({ ...formData, password: e.target.value })
           }
         />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </form>
-
       <p>
-        You have an account?
-        <button onClick={() => navigate('/')}>Login</button>
+        You don't have an account?
+        <button onClick={() => navigate('/register')}>Register</button>
       </p>
     </div>
   )
