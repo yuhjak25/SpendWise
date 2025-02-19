@@ -1,10 +1,26 @@
-import { useAppSelector } from '../store/hooks/useStore'
+import { useAuthActions } from '../Auth/hooks/authAction'
+import { logOutReq } from '../Auth/services/auth'
 
 const Expenses = () => {
-  const auth = useAppSelector((state) => state.auth)
+  const { logOutUser } = useAuthActions()
+
+  const logOut = async () => {
+    const res = await logOutReq()
+    if (res) {
+      logOutUser()
+    }
+  }
+
   return (
     <article>
-      <h1>Hello {auth.user?.username} </h1>
+      <h1>Hello </h1>
+
+      <button
+        onClick={() => {
+          logOut()
+        }}>
+        Log out
+      </button>
     </article>
   )
 }

@@ -4,12 +4,14 @@ import {
   loginUser as loginUserAction,
   logoutUser,
 } from '../reducers/auth'
-import { UserData } from '../../types'
+import { UserData, UserDataRegister } from '../../types'
+import { useNavigate } from 'react-router-dom'
 
 export const useAuthActions = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const registerUser = (res: UserData) => {
+  const registerUser = (res: UserDataRegister) => {
     dispatch(registerUserAction(res))
   }
 
@@ -19,6 +21,7 @@ export const useAuthActions = () => {
 
   const logOutUser = () => {
     dispatch(logoutUser())
+    navigate('/')
   }
 
   return { registerUser, loginUser, logOutUser }
