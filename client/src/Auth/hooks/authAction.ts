@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import {
   registerUser as registerUserAction,
   loginUser as loginUserAction,
+  logoutUser,
 } from '../reducers/auth'
 import { UserData, UserDataRegister } from '../../types'
 
@@ -16,5 +17,9 @@ export const useAuthActions = () => {
     dispatch(loginUserAction(res))
   }
 
-  return { registerUser, loginUser }
+  const logOutUser = () => {
+    dispatch(logoutUser())
+  }
+
+  return { registerUser, loginUser, logOutUser }
 }
