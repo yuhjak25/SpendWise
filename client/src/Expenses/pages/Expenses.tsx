@@ -22,29 +22,38 @@ const Expenses = () => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const res = await getUserExpenses()
-        dispatch(getExpenses(res.data))
+        const data = await getUserExpenses()
+
+        if (data.length > 0) {
+          dispatch(getExpenses(data))
+        }
       } catch (error) {
-        console.error('Error obteniendo los gastos:', error)
+        console.error('❌ Error obteniendo los gastos:', error)
       }
     }
 
     fetchExpenses()
   }, [dispatch])
 
+  console.log('Gastos en Redux:', expenses)
+
   return (
     <article>
-      <h1>Hello </h1>
+      <h1>Gastos</h1>
 
       <button onClick={logOut}>Log out</button>
 
-      <ul>
-        {expenses.map((expense) => (
-          <li key={expense._id}>
-            {expense.description} - {expense.amount}€
-          </li>
-        ))}
-      </ul>
+      {expenses.length === 0 ? (
+        <p>No hay gastos registrados.</p>
+      ) : (
+        <ul>
+          {expenses.map((expense) => (
+            <li key={expense._id}>
+              {expense.description} - {expense.amount}€
+            </li>
+          ))}
+        </ul>
+      )}
     </article>
   )
 }

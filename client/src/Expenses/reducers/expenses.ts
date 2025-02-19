@@ -10,6 +10,9 @@ const expenseSlice = createSlice({
     getExpenses(_state, action: PayloadAction<Expenses[]>) {
       return action.payload
     },
+    createExpenses(state, action: PayloadAction<Expenses[]>) {
+      state.push(...action.payload)
+    },
   },
 })
 
