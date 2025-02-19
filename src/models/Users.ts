@@ -21,6 +21,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    expenses: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Expense',
+      },
+    ],
   },
   { timestamps: true }
 )
