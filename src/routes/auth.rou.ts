@@ -1,5 +1,5 @@
 import express from 'express'
-import { userLogin, userRegister } from '../services/auth.serv'
+import { userLogin, userLogOut, userRegister } from '../services/auth.serv'
 
 export const authRoute = express
   .Router()
@@ -8,4 +8,7 @@ export const authRoute = express
   })
   .post('/login', async (req, res) => {
     return await userLogin(req, res)
+  })
+  .post('/logout', async (_req, res) => {
+    return await userLogOut(_req, res)
   })

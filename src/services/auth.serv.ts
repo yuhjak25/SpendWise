@@ -97,3 +97,13 @@ export const getUser = async (req: AuthenticatedRequest, res: Response) => {
     return
   }
 }
+
+export const userLogOut = async (_req: unknown, res: Response) => {
+  try {
+    res.clearCookie('token')
+    res.json({ message: 'logged out' })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'something went wrong' })
+  }
+}
