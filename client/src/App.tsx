@@ -3,7 +3,7 @@ import Register from './Auth/pages/Register'
 import Login from './Auth/pages/Login'
 
 import Expenses from './Expenses/pages/Expenses'
-import ProtectedRoutes from './shared/ProtectedRoutes'
+import ProtectedRoutes from './share/ProtectedRoutes'
 
 const App = () => {
   return (
