@@ -41,3 +41,21 @@ export const createExpense = async (
     return
   }
 }
+
+export const getExpenses = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ error: 'Unauthorized' })
+      return
+    }
+
+    const expenses = await Expense.find({ userId: req.user.id })
+
+    res.status(200).json(expenses)
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error instanceof Error ? error.message : 'Unknown error' })
+    return
+  }
+}
