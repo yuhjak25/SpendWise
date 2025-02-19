@@ -100,7 +100,7 @@ export const getUser = async (req: AuthenticatedRequest, res: Response) => {
 
 export const userLogOut = async (_req: unknown, res: Response) => {
   try {
-    res.clearCookie('token')
+    res.cookie('token', '', { expires: new Date(0) })
     res.json({ message: 'logged out' })
   } catch (error) {
     console.log(error)

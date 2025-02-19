@@ -26,7 +26,13 @@ export const loginReq = async (userData: UserData) => {
 
 export const logOutReq = async () => {
   try {
-    return await axios.post(`${url}/api/auth/logout`)
+    return await axios.post(
+      `${url}/api/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    )
   } catch (error) {
     console.log('something went wrong', error)
   }
