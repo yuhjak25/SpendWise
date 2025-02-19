@@ -1,12 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthActions } from '../../Auth/hooks/authAction'
 import { logOutReq } from '../../Auth/services/auth'
 import { getUserExpenses } from '../services/expenses'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/useStore'
 import { getExpenses } from '../reducers/expenses'
+import type { Expenses } from '../../types'
+import { useExpenses } from '../hook/useExpenses'
 
 const Expenses = () => {
+  const [formData, setFormData] = useState<Expenses>({
+    description: '',
+    amount: 0,
+    category: '',
+  })
   const { logOutUser } = useAuthActions()
+  const { createAExpense } = useExpenses()
   const dispatch = useAppDispatch()
   const expenses = useAppSelector((state) => state.expenses)
 
@@ -35,7 +43,20 @@ const Expenses = () => {
     fetchExpenses()
   }, [dispatch])
 
-  console.log('Gastos en Redux:', expenses)
+  const submitExpense = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+
+    try {
+      await createAExpense(formData)
+      setFormData({
+        description: '',
+        amount: 0,
+        category: '',
+      })
+    } catch (error) {
+      console.log('Error happened', error)
+    }
+  }
 
   return (
     <article>
@@ -54,6 +75,34 @@ const Expenses = () => {
           ))}
         </ul>
       )}
+
+      <form onSubmit={submitExpense}>
+        <input
+          type="text"
+          placeholder="Descripción"
+          value={formData.description}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Cantidad"
+          value={formData.amount}
+          onChange={(e) =>
+            setFormData({ ...formData, amount: Number(e.target.value) })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Categoría"
+          value={formData.category}
+          onChange={(e) =>
+            setFormData({ ...formData, category: e.target.value })
+          }
+        />
+        <button type="submit">Añadir gasto</button>
+      </form>
     </article>
   )
 }

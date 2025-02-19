@@ -5,6 +5,8 @@ import { ReactNode } from 'react'
 const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
   const auth = useAppSelector((state) => state.auth.isAuthenticated)
 
+  console.log('auth', auth)
+
   if (!auth) {
     return <Navigate to="/" replace />
   }

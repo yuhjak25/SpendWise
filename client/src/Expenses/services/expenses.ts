@@ -17,9 +17,15 @@ export const getUserExpenses = async () => {
 
 export const postExpenses = async (expensesData: Expenses) => {
   try {
-    return await axios.post(`${url}/api/expenses/create-expenses`, {
-      expensesData,
-    })
+    return await axios.post(
+      `${url}/api/expenses/create-expenses`,
+      {
+        expensesData,
+      },
+      {
+        withCredentials: true,
+      }
+    )
   } catch (error) {
     console.error('Error creando el gasto:', error)
   }

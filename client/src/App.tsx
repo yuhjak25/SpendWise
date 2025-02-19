@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Register from './Auth/pages/Register'
 import Login from './Auth/pages/Login'
-import ProtectedRoutes from './share/ProtectedRoutes'
+
 import Expenses from './Expenses/pages/Expenses'
+import ProtectedRoutes from './shared/ProtectedRoutes'
 
 const App = () => {
   return (
