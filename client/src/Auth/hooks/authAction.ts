@@ -4,12 +4,12 @@ import {
   loginUser as loginUserAction,
   logoutUser,
 } from '../reducers/auth'
-import { UserData, UserDataRegister } from '../../types'
+import { UserData } from '../../types'
 
 export const useAuthActions = () => {
   const dispatch = useDispatch()
 
-  const registerUser = (res: UserDataRegister) => {
+  const registerUser = (res: UserData) => {
     dispatch(registerUserAction(res))
   }
 
