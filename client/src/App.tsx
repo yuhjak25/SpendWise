@@ -59,7 +59,7 @@ const App = () => {
 
       {auth.isAuthenticated && auth.user && (
         <div>
-          <h2>Welcome, {auth.user.name}</h2>
+          <h2>Welcome, {auth.user.username}</h2>
           <p>Email: {auth.user.email}</p>
         </div>
       )}
