@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Register from './Auth/pages/Register'
 import Login from './Auth/pages/Login'
+import ProtectedRoutes from './share/ProtectedRoutes'
 import Expenses from './Expenses/pages/Expenses'
 
 const App = () => {
@@ -10,7 +11,9 @@ const App = () => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Expenses />} />
+          <Route element={<ProtectedRoutes children={undefined} />}>
+            <Route path="/dashboard" element={<Expenses />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
