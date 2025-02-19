@@ -81,8 +81,8 @@ export const userLogin = async (req: Request, res: Response) => {
 
 export const getUser = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const user = req.user as { id: string }
-    const foundUser = await User.findById(user.id)
+    const user = req.user
+    const foundUser = await User.findById(user?.id)
     if (!foundUser) {
       res.status(404).json({ error: 'user not found' })
       return

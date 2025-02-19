@@ -1,5 +1,4 @@
 import express from 'express'
-
 import { getUser, userLogin, userRegister } from '../services/auth.serv'
 import { authMiddleware } from '../middleware/authMiddleware'
 
@@ -11,6 +10,6 @@ export const authRoute = express
   .post('/register', async (req, res) => {
     return await userRegister(req, res)
   })
-  .post('login', async (req, res) => {
+  .post('/login', async (req, res) => {
     return await userLogin(req, res)
   })
