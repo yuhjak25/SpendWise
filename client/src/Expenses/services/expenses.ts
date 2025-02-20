@@ -7,7 +7,6 @@ export const getUserExpenses = async () => {
     const res = await axios.get(`${url}/api/expenses/get-expenses`, {
       withCredentials: true,
     })
-    console.log('data: ', res.data)
     return res.data
   } catch (error) {
     console.error('❌ Error obteniendo los gastos:', error)
@@ -17,7 +16,6 @@ export const getUserExpenses = async () => {
 
 export const postExpenses = async (expensesData: Expenses) => {
   try {
-    console.log('datos enviados', expensesData)
     const res = await axios.post(
       `${url}/api/expenses/create-expenses`,
       expensesData,
@@ -25,7 +23,6 @@ export const postExpenses = async (expensesData: Expenses) => {
         withCredentials: true,
       }
     )
-    console.log('res del server', res.data)
     return res.data
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useExpenses } from '../hook/useExpenses'
 import { Expenses } from '../../types'
-import { useAppSelector } from '../../store/hooks/useStore'
 import { useNavigate } from 'react-router-dom'
 
 const ExpenseForm = () => {
@@ -11,24 +10,19 @@ const ExpenseForm = () => {
     category: '',
   })
   const { createAExpense } = useExpenses()
-  console.log(
-    'Estado global:',
-    useAppSelector((state) => state.expenses)
-  )
+
   const navigate = useNavigate()
 
   const submitExpense = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     try {
-      const newExpenses = await createAExpense(formData)
+      await createAExpense(formData)
       setFormData({
         description: '',
         amount: 0,
         category: '',
       })
-
-      console.log('gastos: ', newExpenses)
     } catch (error) {
       console.log('Error happened', error)
     }

@@ -11,10 +11,6 @@ const Expenses = () => {
   const { logOutUser } = useAuthActions()
   const dispatch = useAppDispatch()
   const expenses = useAppSelector((state) => state.expenses)
-  console.log(
-    'Estado global:',
-    useAppSelector((state) => state.expenses)
-  )
   const navigate = useNavigate()
 
   const logOut = async () => {
@@ -30,7 +26,6 @@ const Expenses = () => {
     const fetchExpenses = async () => {
       try {
         const data = await getUserExpenses()
-        console.log('Datos recibidos: ', data)
         if (data.length > 0) {
           dispatch(getExpenses(data))
         }
@@ -52,7 +47,7 @@ const Expenses = () => {
         <ul>
           {expenses.map((expense) => (
             <li key={expense._id}>
-              {expense.description} - {expense.amount}€
+              {expense.category} {expense.description} - {expense.amount}€
             </li>
           ))}
         </ul>
