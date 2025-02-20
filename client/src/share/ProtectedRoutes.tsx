@@ -1,8 +1,8 @@
-import { ReactNode, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
+const ProtectedRoutes = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
     }
   }, [navigate])
 
-  return <>{children}</>
+  return <Outlet />
 }
 
 export default ProtectedRoutes

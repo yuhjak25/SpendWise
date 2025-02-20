@@ -4,11 +4,11 @@ import { Expenses } from '../../types'
 
 export const getUserExpenses = async () => {
   try {
-    const response = await axios.get(`${url}/api/expenses/get-expenses`, {
+    const res = await axios.get(`${url}/api/expenses/get-expenses`, {
       withCredentials: true,
     })
-
-    return response.data
+    console.log('data: ', res.data)
+    return res.data
   } catch (error) {
     console.error('❌ Error obteniendo los gastos:', error)
     return []
@@ -17,16 +17,21 @@ export const getUserExpenses = async () => {
 
 export const postExpenses = async (expensesData: Expenses) => {
   try {
-    return await axios.post(
+    console.log('datos enviados', expensesData)
+    const res = await axios.post(
       `${url}/api/expenses/create-expenses`,
-      {
-        expensesData,
-      },
+      expensesData,
       {
         withCredentials: true,
       }
     )
+    console.log('res del server', res.data)
+    return res.data
   } catch (error) {
-    console.error('Error creando el gasto:', error)
+    if (axios.isAxiosError(error)) {
+      console.error('error axios', error.response?.data)
+    } else {
+      console.error('Error creando el gasto:', error)
+    }
   }
 }

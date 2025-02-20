@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useAuthActions } from '../../Auth/hooks/authAction'
 import { logOutReq } from '../../Auth/services/auth'
 import { getUserExpenses } from '../services/expenses'
 import { useAppDispatch, useAppSelector } from '../../store/hooks/useStore'
 import { getExpenses } from '../reducers/expenses'
 import type { Expenses } from '../../types'
-import { useExpenses } from '../hook/useExpenses'
+import { useNavigate } from 'react-router-dom'
 
 const Expenses = () => {
-  const [formData, setFormData] = useState<Expenses>({
-    description: '',
-    amount: 0,
-    category: '',
-  })
   const { logOutUser } = useAuthActions()
-  const { createAExpense } = useExpenses()
   const dispatch = useAppDispatch()
   const expenses = useAppSelector((state) => state.expenses)
+  console.log(
+    'Estado global:',
+    useAppSelector((state) => state.expenses)
+  )
+  const navigate = useNavigate()
 
   const logOut = async () => {
     try {
@@ -31,7 +30,7 @@ const Expenses = () => {
     const fetchExpenses = async () => {
       try {
         const data = await getUserExpenses()
-
+        console.log('Datos recibidos: ', data)
         if (data.length > 0) {
           dispatch(getExpenses(data))
         }
@@ -43,30 +42,13 @@ const Expenses = () => {
     fetchExpenses()
   }, [dispatch])
 
-  const submitExpense = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-
-    try {
-      await createAExpense(formData)
-      setFormData({
-        description: '',
-        amount: 0,
-        category: '',
-      })
-    } catch (error) {
-      console.log('Error happened', error)
-    }
-  }
-
   return (
     <article>
       <h1>Gastos</h1>
 
       <button onClick={logOut}>Log out</button>
 
-      {expenses.length === 0 ? (
-        <p>No hay gastos registrados.</p>
-      ) : (
+      {Array.isArray(expenses) && expenses.length > 0 ? (
         <ul>
           {expenses.map((expense) => (
             <li key={expense._id}>
@@ -74,35 +56,11 @@ const Expenses = () => {
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No hay gastos registrados.</p>
       )}
 
-      <form onSubmit={submitExpense}>
-        <input
-          type="text"
-          placeholder="Descripción"
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        />
-        <input
-          type="number"
-          placeholder="Cantidad"
-          value={formData.amount}
-          onChange={(e) =>
-            setFormData({ ...formData, amount: Number(e.target.value) })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Categoría"
-          value={formData.category}
-          onChange={(e) =>
-            setFormData({ ...formData, category: e.target.value })
-          }
-        />
-        <button type="submit">Añadir gasto</button>
-      </form>
+      <button onClick={() => navigate('/create-expenses')}>Añadir gasto</button>
     </article>
   )
 }

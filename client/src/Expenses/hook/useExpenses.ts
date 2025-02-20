@@ -8,7 +8,7 @@ export const useExpenses = () => {
   const createAExpense = async (data: Expenses) => {
     try {
       const res = await postExpenses(data)
-      dispatch(createExpenses([res?.data]))
+      dispatch(createExpenses(res))
     } catch (error) {
       console.error('Failed to create expense:', error)
     }

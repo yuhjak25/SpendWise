@@ -15,7 +15,7 @@ export const createExpense = async (
 
     const { description, amount, category } = req.body
 
-    if (!(description && amount && category)) {
+    if (!description && !amount && category) {
       res.status(400).json({
         error: 'malformed request syntax',
       })
@@ -31,8 +31,11 @@ export const createExpense = async (
 
     await newExpense.save()
 
-    await User.updateOne({ $push: { expenses: newExpense } })
-
+    await User.updateOne(
+      { _id: req.user.id },
+      { $push: { expenses: newExpense._id } }
+    )
+    console.log('nuevo gasto', newExpense)
     res.status(201).json(newExpense)
   } catch (error) {
     res
