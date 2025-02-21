@@ -62,3 +62,35 @@ export const getExpenses = async (req: AuthenticatedRequest, res: Response) => {
     return
   }
 }
+
+export const deleteExpenses = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ error: 'Unauthorized' })
+      return
+    }
+
+    const { id } = req.params
+
+    if (!id) {
+      res.status(400).json({ error: 'malformed request syntax' })
+      return
+    }
+
+    const expense = await Expense.findByIdAndDelete(id)
+
+    if (!expense) {
+      res.status(404).json({ error: 'Expense not found' })
+      return
+    }
+
+    res.status(204).json()
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error instanceof Error ? error.message : 'Unknown error' })
+  }
+}

@@ -8,7 +8,7 @@ export interface UserDataRegister extends UserData {
 }
 
 export interface Expenses {
-  _id?: string
+  _id: string
   description: string
   amount: number
   category: string

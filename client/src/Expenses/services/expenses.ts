@@ -32,3 +32,15 @@ export const postExpenses = async (expensesData: Expenses) => {
     }
   }
 }
+
+export const deleteExpenses = async (id: string) => {
+  try {
+    const res = await axios.delete(`${url}/api/expenses/${id}`, {
+      withCredentials: true,
+    })
+    console.log('ID recibido para eliminar:', id)
+    return res.data
+  } catch (error) {
+    console.error('❌ Error eliminando el gasto:', error)
+  }
+}

@@ -1,6 +1,10 @@
 import express from 'express'
 import { authMiddleware } from '../middleware/authMiddleware'
-import { createExpense, getExpenses } from '../services/expenses.serv'
+import {
+  createExpense,
+  getExpenses,
+  deleteExpenses,
+} from '../services/expenses.serv'
 
 export const expensesRoute = express
   .Router()
@@ -9,4 +13,7 @@ export const expensesRoute = express
   })
   .get('/get-expenses', authMiddleware, async (req, res) => {
     return await getExpenses(req, res)
+  })
+  .delete('/:id', authMiddleware, async (req, res) => {
+    return await deleteExpenses(req, res)
   })
