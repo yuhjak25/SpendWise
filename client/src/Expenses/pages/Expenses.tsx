@@ -49,7 +49,8 @@ const Expenses = () => {
             .filter((expense) => expense !== undefined)
             .map((expense) => (
               <li key={expense._id}>
-                {expense.category} {expense.description} - {expense.amount}€
+                {expense.category} {expense.description} - {expense.amount}€ -
+                {expense.date}
                 <button onClick={() => deleteAExpense(expense._id)}>
                   Eliminar
                 </button>

@@ -12,4 +12,5 @@ export interface Expenses {
   description: string
   amount: number
   category: string
+  date: string
 }
