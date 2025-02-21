@@ -35,7 +35,9 @@ export const createExpense = async (
       { _id: req.user.id },
       { $push: { expenses: newExpense._id } }
     )
-    console.log('nuevo gasto', newExpense)
+
+    console.log('new data', newExpense)
+
     res.status(201).json(newExpense)
   } catch (error) {
     res
@@ -86,6 +88,11 @@ export const deleteExpenses = async (
       res.status(404).json({ error: 'Expense not found' })
       return
     }
+
+    await User.updateOne(
+      { _id: req.user.id },
+      { $pull: { expenses: id } }
+    )
 
     res.status(204).json()
   } catch (error) {
