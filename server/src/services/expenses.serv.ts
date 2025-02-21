@@ -101,3 +101,49 @@ export const deleteExpenses = async (
       .json({ error: error instanceof Error ? error.message : 'Unknown error' })
   }
 }
+
+export const updateExpenses = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    if (!req.user) {
+      res.status(401).json({ error: 'Unauthorized' })
+      return
+    }
+
+    const { id } = req.params
+
+    if (!id) {
+      res.status(400).json({ error: 'malformed request syntax' })
+      return
+    }
+
+    const { description, amount, category } = req.body
+
+    if (!description && !amount && category) {
+      res.status(400).json({
+        error: 'malformed request syntax',
+      })
+      return
+    }
+
+    const updatedExpenses = await Expense.findByIdAndUpdate(id, {
+      description,
+      amount,
+      category,
+    })
+
+
+    if (!updatedExpenses) {
+      res.status(404).json({ error: 'Expense not found' })
+      return
+    }
+
+    res.status(204).json({ message: 'Expense updated' })
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: error instanceof Error ? error.message : 'Unknown error' })
+  }
+}

@@ -44,3 +44,14 @@ export const deleteExpenses = async (id: string) => {
     console.error('❌ Error eliminando el gasto:', error)
   }
 }
+
+export const updateExpenses = async (id: string, expensesData: Expenses) => {
+  try {
+    const res = await axios.put(`${url}/api/expenses/${id}`, expensesData, {
+      withCredentials: true,
+    })
+    return res.data
+  } catch (error) {
+    console.error('❌ Error actualizando el gasto:', error)
+  }
+}

@@ -4,6 +4,7 @@ import {
   createExpense,
   getExpenses,
   deleteExpenses,
+  updateExpenses,
 } from '../services/expenses.serv'
 
 export const expensesRoute = express
@@ -16,4 +17,7 @@ export const expensesRoute = express
   })
   .delete('/:id', authMiddleware, async (req, res) => {
     return await deleteExpenses(req, res)
+  })
+  .put('/:id', authMiddleware, async (req, res) => {
+    return await updateExpenses(req, res)
   })
