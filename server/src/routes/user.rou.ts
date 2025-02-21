@@ -1,6 +1,6 @@
 import express from 'express'
-import { getUser } from '../services/auth.serv'
 import { authMiddleware } from '../middleware/authMiddleware'
+import { getUser } from '../services/user.serv'
 
 export const userRoute = express
   .Router()

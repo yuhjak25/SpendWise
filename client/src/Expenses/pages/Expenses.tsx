@@ -7,8 +7,10 @@ import { getExpenses } from '../reducers/expenses'
 import type { Expenses } from '../../types'
 import { useNavigate } from 'react-router-dom'
 import { useExpenses } from '../hook/useExpenses'
+import { useUser } from '../../Users/hooks/useUser'
 
 const Expenses = () => {
+  const username = useUser()
   const { logOutUser } = useAuthActions()
   const { deleteAExpense } = useExpenses()
   const dispatch = useAppDispatch()
@@ -39,6 +41,7 @@ const Expenses = () => {
 
   return (
     <article>
+      <h1> Bienvenido {username} </h1>
       <h1>Gastos</h1>
 
       <button onClick={logOut}>Log out</button>

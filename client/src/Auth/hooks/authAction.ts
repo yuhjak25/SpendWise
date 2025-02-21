@@ -2,10 +2,12 @@ import { useDispatch } from 'react-redux'
 import {
   registerUser as registerUserAction,
   loginUser as loginUserAction,
-  logoutUser,
+  logoutUser as logOutUserAction,
+  setUserData as setUserAction,
 } from '../reducers/auth'
 import { UserData, UserDataRegister } from '../../types'
 import { useNavigate } from 'react-router-dom'
+import { getUserProfileData } from '../../Users/services/users'
 
 export const useAuthActions = () => {
   const dispatch = useDispatch()
@@ -20,9 +22,16 @@ export const useAuthActions = () => {
   }
 
   const logOutUser = () => {
-    dispatch(logoutUser())
+    dispatch(logOutUserAction())
     navigate('/')
   }
 
-  return { registerUser, loginUser, logOutUser }
+  const getUserData = async () => {
+    const userData = await getUserProfileData()
+    if (userData) {
+      dispatch(setUserAction(userData))
+    }
+  }
+
+  return { registerUser, loginUser, logOutUser, getUserData }
 }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const ExpenseForm = () => {
   const [formData, setFormData] = useState<Expenses>({
+    _id: '',
     description: '',
     amount: 0,
     category: '',
@@ -19,6 +20,7 @@ const ExpenseForm = () => {
     try {
       await createAExpense(formData)
       setFormData({
+        _id: '',
         description: '',
         amount: 0,
         category: '',
