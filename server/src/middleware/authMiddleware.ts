@@ -12,7 +12,6 @@ export const authMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    console.log('Cookies: ', req.cookies)
     if (!req.cookies) {
       res.status(401).json({ message: 'unauthorized' })
       return
