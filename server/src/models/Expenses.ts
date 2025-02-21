@@ -21,8 +21,8 @@ const expenseSchema = new Schema(
       required: true,
     },
     date: {
-      type: Date,
-      default: Date.now,
+      type: String,
+      default: () => new Date().toLocaleDateString('es-ES'),
     },
     user: {
       type: Schema.Types.ObjectId,
