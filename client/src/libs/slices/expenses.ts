@@ -16,9 +16,12 @@ const authSlice = createSlice({
         },
         clearExpenses: (state, action: PayloadAction<{ id: string }>) => {
             return state.filter((expense) => expense._id !== action.payload.id)
+        },
+        editExpenses: (state, action: PayloadAction<Expenses>) => {
+            return state.map(expense => expense._id === action.payload._id ? action.payload : expense)
         }
     }
 })
 
-export const { getUserExpenses, setExpenses, clearExpenses } = authSlice.actions
+export const { getUserExpenses, setExpenses, clearExpenses, editExpenses } = authSlice.actions
 export default authSlice.reducer

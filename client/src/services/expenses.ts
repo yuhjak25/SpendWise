@@ -40,8 +40,22 @@ const clearExpensesApi = async (id: string) => {
     }
 }
 
+const updateExpensesApi = async (id: string, expenseData: Expenses) => {
+    try {
+        const res = await axios.put(`${url}/api/expenses/${id}`, expenseData, { withCredentials: true })
+        return res.data
+    } catch (e) {
+        if (e instanceof AxiosError && e.response?.data?.error) {
+            return { error: e.response.data.error }
+        }
+
+        return { error: 'Something went wrong' }
+    }
+}
+
 export {
     getExpensesApi,
     setExpensesApi,
-    clearExpensesApi
+    clearExpensesApi,
+    updateExpensesApi
 }
