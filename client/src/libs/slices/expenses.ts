@@ -13,9 +13,12 @@ const authSlice = createSlice({
         },
         setExpenses: (state, action: PayloadAction<Expenses>) => {
             state.push(action.payload)
+        },
+        clearExpenses: (state, action: PayloadAction<{ id: string }>) => {
+            return state.filter((expense) => expense._id !== action.payload.id)
         }
     }
 })
 
-export const { getUserExpenses, setExpenses } = authSlice.actions
+export const { getUserExpenses, setExpenses, clearExpenses } = authSlice.actions
 export default authSlice.reducer

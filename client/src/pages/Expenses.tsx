@@ -18,7 +18,8 @@ const Expense = () => {
   const username = useUser()
   const { handleError } = useError()
   const { clearUserData } = useUserAuthActions()
-  const { getExpensesData, postExpensesData } = useExpensesActions()
+  const { getExpensesData, postExpensesData, clearExpensesData } =
+    useExpensesActions()
   const expenses = useAppSelector((state) => state.expenses)
   const error = useAppSelector((state) => state.error.error)
 
@@ -94,6 +95,9 @@ const Expense = () => {
             <li key={expense._id}>
               {expense.date} - {expense.category} / {expense.description} -{' '}
               {expense.amount} €
+              <button onClick={() => clearExpensesData(expense._id)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>

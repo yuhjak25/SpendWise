@@ -1,5 +1,5 @@
-import { getUserExpenses, setExpenses } from "../libs/slices/expenses"
-import { getExpensesApi, setExpensesApi } from "../services/expenses"
+import { clearExpenses, getUserExpenses, setExpenses } from "../libs/slices/expenses"
+import { clearExpensesApi, getExpensesApi, setExpensesApi } from "../services/expenses"
 import { useAppDispatch } from "../store/hooks/useStore"
 import { Expenses } from "../types"
 import useError from "./useError"
@@ -36,7 +36,21 @@ const useExpensesActions = () => {
         }
     }
 
-    return { getExpensesData, postExpensesData }
+    const clearExpensesData = async (id: string) => {
+        try {
+            const res = await clearExpensesApi(id)
+            if (res.error) {
+                handleError(res.error)
+                return
+            }
+            dispatch(clearExpenses({ id }))
+        } catch (e) {
+            console.log('Error creating expenses', e)
+            handleError('Error creating expenses')
+        }
+    }
+
+    return { getExpensesData, postExpensesData, clearExpensesData }
 }
 
 export default useExpensesActions

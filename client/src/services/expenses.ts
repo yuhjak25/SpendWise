@@ -27,7 +27,21 @@ const setExpensesApi = async (expensesData: Expenses) => {
     }
 }
 
+const clearExpensesApi = async (id: string) => {
+    try {
+        const res = await axios.delete(`${url}/api/expenses/${id}`, { withCredentials: true })
+        return res.data
+    } catch (e) {
+        if (e instanceof AxiosError && e.response?.data?.error) {
+            return { error: e.response.data.error }
+        }
+
+        return { error: 'Something went wrong' }
+    }
+}
+
 export {
     getExpensesApi,
-    setExpensesApi
+    setExpensesApi,
+    clearExpensesApi
 }
