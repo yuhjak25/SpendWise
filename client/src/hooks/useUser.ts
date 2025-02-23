@@ -14,6 +14,10 @@ export const useUser = () => {
             const getUsername = async () => {
                 try {
                     const data = await userApi()
+                    if (data.error) {
+                        handleError(data.error)
+                        return
+                    }
                     dispatch(setUsername(data.username))
                 } catch (error) {
                     console.log('Failed to fetch username:', error)
