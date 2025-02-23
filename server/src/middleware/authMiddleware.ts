@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { SECRET } from '../utils/constants'
 
 export interface AuthenticatedRequest extends Request {
-  user?: { id: string }
+  user?: { id: string; username: string }
 }
 
 export const authMiddleware = async (
@@ -21,7 +21,8 @@ export const authMiddleware = async (
       res.status(401).json({ message: 'unauthorized' })
       return
     }
-    const user = jwt.verify(token, SECRET) as { id: string }
+    const user = jwt.verify(token, SECRET) as { id: string; username: string }
+
     if (!user) {
       res.status(401).json({ message: 'unauthorized' })
       return
