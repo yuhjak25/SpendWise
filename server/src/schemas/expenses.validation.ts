@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const expenseSchema = z.object({
-    userId: z.string({ required_error: 'User ID is required' }),
     description: z.string({ required_error: 'Description is required' }).min(10, {
         message: 'Description must be at least 10 characters long'
     }).max(100, {

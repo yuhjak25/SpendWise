@@ -24,7 +24,7 @@ export const userRegister = async (req: Request, res: Response) => {
 
     await newUser.save()
 
-    const token = generateAccessToken({ id: newUser._id, username: newUser.username })
+    const token = generateAccessToken({ id: newUser._id })
     if (!token) {
       res.status(500).json({ error: 'Failed to generate token' })
       return
@@ -65,7 +65,7 @@ export const userLogin = async (req: Request, res: Response) => {
       return
     }
 
-    const token = generateAccessToken({ id: userExist._id, username: userExist.username })
+    const token = generateAccessToken({ id: userExist._id })
 
     res.cookie('token', token)
     res.json({

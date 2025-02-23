@@ -14,7 +14,7 @@ export const expensesRoute = express
   .post('/create-expenses', schemaValidator(expenseSchema), authMiddleware, async (req, res) => {
     return await createExpense(req, res)
   })
-  .get('/get-expenses', schemaValidator(expenseSchema), authMiddleware, async (req, res) => {
+  .get('/get-expenses', authMiddleware, async (req, res) => {
     return await getExpenses(req, res)
   })
   .delete('/:id', schemaValidator(expenseSchema), authMiddleware, async (req, res) => {
