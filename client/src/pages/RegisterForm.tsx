@@ -28,15 +28,16 @@ const RegisterForm = () => {
         email: '',
         password: '',
       })
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      navigate('/')
     } catch (error) {
+      console.log('Something went wrong', error)
       handleError('Something went wrong')
     }
   }
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Register</h1>
 
       <form onSubmit={submitUserRegister}>
         <div>
@@ -80,7 +81,7 @@ const RegisterForm = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
       <span>
         You have an account?

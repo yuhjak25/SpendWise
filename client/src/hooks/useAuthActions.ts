@@ -1,14 +1,14 @@
+import { useNavigate } from "react-router-dom"
 import { setUser } from "../libs/slices/auth"
 import { loginApi, registerApi } from "../services/auth"
 import { useAppDispatch } from "../store/hooks/useStore"
 import { UserData, UserDataRegister } from "../types"
 import useError from "./useError"
 
-const userAuthActions = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+const useUserAuthActions = () => {
     const dispatch = useAppDispatch()
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { handleError } = useError()
+    const navigate = useNavigate()
 
     const setUserData = async (user: UserData) => {
         try {
@@ -17,9 +17,10 @@ const userAuthActions = () => {
                 handleError(userData.error)
                 return
             }
-            dispatch(setUser(userData));
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            dispatch(setUser(userData))
+            navigate('/')
         } catch (error) {
+            console.log('Login failed', error)
             handleError('Login failed')
         }
     }
@@ -31,9 +32,10 @@ const userAuthActions = () => {
                 handleError(userData.error)
                 return
             }
-            dispatch(setUser(userData));
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            dispatch(setUser(userData))
+            navigate('/')
         } catch (error) {
+            console.log('Login failed', error)
             handleError('Login failed')
         }
     }
@@ -41,4 +43,4 @@ const userAuthActions = () => {
     return { setUserData, setNewUserData }
 }
 
-export default userAuthActions
+export default useUserAuthActions

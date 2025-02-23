@@ -26,8 +26,8 @@ const LoginForm = () => {
         email: '',
         password: '',
       })
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.log('Something went wrong', error)
       handleError('Something went wrong')
     }
   }
