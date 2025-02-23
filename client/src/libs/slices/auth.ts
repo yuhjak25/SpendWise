@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { PublicUserData, UserData, UserDataRegister } from "../../types"
+import { PublicUserData } from "../../types"
 
 interface AuthDetails {
     isAuthenticated: boolean
-    user: UserData | UserDataRegister | PublicUserData | null
+    user: PublicUserData | null
 }
 
 const initialState: AuthDetails = {

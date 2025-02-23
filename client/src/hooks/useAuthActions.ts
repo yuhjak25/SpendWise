@@ -39,7 +39,6 @@ const useUserAuthActions = () => {
             handleError('Login failed')
         }
     }
-
     return { setUserData, setNewUserData }
 }
 
