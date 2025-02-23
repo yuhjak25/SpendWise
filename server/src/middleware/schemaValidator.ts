@@ -1,17 +1,15 @@
-import type { Request, Response, NextFunction } from 'express'
-import { z } from 'zod'
+import type { Request, Response, NextFunction } from 'express';
 
-export const schemaValidator = (schema: any) => (req: Request, res: Response, next: NextFunction) => {
-    try {
-        schema.parse(req.body)
-        next()
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({
-                message: error.errors.map((err) => err.message)
-            })
+export const schemaValidator = (schema: any) => {
+    return (req: Request, res: Response, next: NextFunction): void => {
+        const result = schema.safeParse(req.body);
+
+        if (!result.success) {
+
+            const errorMessage = result.error?.issues?.[0]?.message || 'Invalid data';
+            res.status(400).json({ error: errorMessage });
+        } else {
+            next();
         }
-        next(error)
-    }
-
-}
+    };
+};

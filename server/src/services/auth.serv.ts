@@ -2,7 +2,6 @@ import type { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import { User } from '../models/Users'
 import { generateAccessToken } from '../utils/jwt'
-import type { AuthenticatedRequest } from '../middleware/authMiddleware'
 
 export const userRegister = async (req: Request, res: Response) => {
   try {
