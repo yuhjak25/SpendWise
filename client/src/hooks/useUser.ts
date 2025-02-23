@@ -10,18 +10,20 @@ export const useUser = () => {
     const username = useAppSelector((state) => state.user.username)
 
     useEffect(() => {
-        const getUsername = async () => {
-            try {
-                const data = await userApi()
-                dispatch(setUsername(data.username))
-            } catch (error) {
-                console.log('Failed to fetch username:', error)
-                handleError('Failed to get the username.')
+        if (!username) {
+            const getUsername = async () => {
+                try {
+                    const data = await userApi()
+                    dispatch(setUsername(data.username))
+                } catch (error) {
+                    console.log('Failed to fetch username:', error)
+                    handleError('Failed to get the username.')
+                }
             }
+            getUsername()
         }
 
-        getUsername()
-    }, [dispatch, handleError])
+    }, [dispatch, username, handleError])
 
     return username
 }

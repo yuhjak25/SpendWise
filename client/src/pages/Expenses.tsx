@@ -9,8 +9,10 @@ const Expenses = () => {
   const expenses = useAppSelector((state) => state.expenses)
 
   useEffect(() => {
-    getExpensesData()
-  }, [getExpensesData])
+    if (expenses.length === 0) {
+      getExpensesData()
+    }
+  }, [expenses, getExpensesData])
 
   return (
     <div>
