@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ProtectedRoutes from './share/ProtectedRoutes'
 import LoginForm from './pages/LoginForm'
 import RegisterForm from './pages/RegisterForm'
-import Username from './pages/Username'
+import Expenses from './pages/Expenses'
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/profile" element={<Username />} />
+          <Route path="/" element={<Expenses />} />
         </Route>
       </Routes>
     </BrowserRouter>
