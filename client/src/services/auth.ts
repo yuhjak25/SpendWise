@@ -43,4 +43,17 @@ const registerApi = async (registerUserData: UserDataRegister) => {
     }
 }
 
-export { loginApi, registerApi }
+const logOutApi = async () => {
+    try {
+        const res = await axios.post(`${url}/api/auth/logout`, {}, { withCredentials: true })
+        return res.data
+    } catch (e) {
+        if (e instanceof AxiosError && e.response?.data?.error) {
+            return { error: e.response.data.error }
+        }
+
+        return { error: 'Something went wrong' }
+    }
+}
+
+export { loginApi, registerApi, logOutApi }

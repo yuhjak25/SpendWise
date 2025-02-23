@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { setUser } from "../libs/slices/auth"
-import { loginApi, registerApi } from "../services/auth"
+import { clearUser, setUser } from "../libs/slices/auth"
+import { loginApi, logOutApi, registerApi } from "../services/auth"
 import { useAppDispatch } from "../store/hooks/useStore"
 import { UserData, UserDataRegister } from "../types"
 import useError from "./useError"
@@ -35,11 +35,22 @@ const useUserAuthActions = () => {
             dispatch(setUser(userData))
             navigate('/')
         } catch (error) {
-            console.log('Login failed', error)
-            handleError('Login failed')
+            console.log('Register failed', error)
+            handleError('Register failed')
         }
     }
-    return { setUserData, setNewUserData }
+
+    const clearUserData = async () => {
+        try {
+            const userData = await logOutApi()
+            dispatch(clearUser(userData))
+        } catch (error) {
+            console.log('Logout failed', error)
+            handleError('Logout failed')
+        }
+    }
+
+    return { setUserData, setNewUserData, clearUserData }
 }
 
 export default useUserAuthActions

@@ -2,9 +2,13 @@ import { useEffect } from 'react'
 import { useUser } from '../hooks/useUser'
 import useExpensesActions from '../hooks/useExpensesActions'
 import { useAppSelector } from '../store/hooks/useStore'
+import useUserAuthActions from '../hooks/useAuthActions'
+import { useNavigate } from 'react-router-dom'
 
 const Expenses = () => {
   const username = useUser()
+  const navigate = useNavigate()
+  const { clearUserData } = useUserAuthActions()
   const { getExpensesData } = useExpensesActions()
   const expenses = useAppSelector((state) => state.expenses)
 
@@ -30,6 +34,14 @@ const Expenses = () => {
       ) : (
         <p>No expenses available</p>
       )}
+
+      <button
+        onClick={() => {
+          navigate('/login')
+          clearUserData()
+        }}>
+        Logout
+      </button>
     </div>
   )
 }
