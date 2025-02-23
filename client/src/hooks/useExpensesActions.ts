@@ -1,6 +1,7 @@
-import { getUserExpenses } from "../libs/slices/expenses"
-import { getExpensesApi } from "../services/expenses"
+import { getUserExpenses, setExpenses } from "../libs/slices/expenses"
+import { getExpensesApi, setExpensesApi } from "../services/expenses"
 import { useAppDispatch } from "../store/hooks/useStore"
+import { Expenses } from "../types"
 import useError from "./useError"
 
 const useExpensesActions = () => {
@@ -10,13 +11,32 @@ const useExpensesActions = () => {
     const getExpensesData = async () => {
         try {
             const expenseData = await getExpensesApi()
+            if (expenseData.error) {
+                handleError(expenseData.error)
+                return
+            }
             dispatch(getUserExpenses(expenseData))
-        } catch (error) {
-            console.log('Error getting expenses', error)
-            handleError('Errro getting expenses')
+        } catch (e) {
+            console.log('Error getting expenses', e)
+            handleError('Error getting expenses')
         }
     }
-    return { getExpensesData }
+
+    const postExpensesData = async (expense: Expenses) => {
+        try {
+            const expenseData = await setExpensesApi(expense)
+            if (expenseData.error) {
+                handleError(expenseData.error)
+                return
+            }
+            dispatch(setExpenses(expenseData))
+        } catch (e) {
+            console.log('Error creating expenses', e)
+            handleError('Error creating expenses')
+        }
+    }
+
+    return { getExpensesData, postExpensesData }
 }
 
 export default useExpensesActions

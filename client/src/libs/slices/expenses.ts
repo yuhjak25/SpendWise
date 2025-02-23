@@ -10,9 +10,12 @@ const authSlice = createSlice({
     reducers: {
         getUserExpenses: (_state, action: PayloadAction<Expenses[]>) => {
             return action.payload
+        },
+        setExpenses: (state, action: PayloadAction<Expenses>) => {
+            state.push(action.payload)
         }
     }
 })
 
-export const { getUserExpenses } = authSlice.actions
+export const { getUserExpenses, setExpenses } = authSlice.actions
 export default authSlice.reducer

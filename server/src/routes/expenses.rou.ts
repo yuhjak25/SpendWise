@@ -17,7 +17,7 @@ export const expensesRoute = express
   .get('/get-expenses', authMiddleware, async (req, res) => {
     return await getExpenses(req, res)
   })
-  .delete('/:id', schemaValidator(expenseSchema), authMiddleware, async (req, res) => {
+  .delete('/:id', authMiddleware, async (req, res) => {
     return await deleteExpenses(req, res)
   })
   .put('/:id', schemaValidator(expenseSchema), authMiddleware, async (req, res) => {
