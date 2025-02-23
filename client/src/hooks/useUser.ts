@@ -14,7 +14,6 @@ export const useUser = () => {
                 if (data.error) {
                     console.error('Failed to fetch username:', data.error)
                 } else {
-
                     dispatch(setUsername(data.username))
                 }
             } catch (error) {
