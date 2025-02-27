@@ -7,6 +7,10 @@ const getExpensesApi = async () => {
         const res = await axios.get(`${url}/api/expenses/get-expenses`, { withCredentials: true })
         return res.data
     } catch (e) {
+        if (e instanceof AxiosError && e.response?.status === 401) {
+            return { error: 'Unauthorized' }
+        }
+
         if (e instanceof AxiosError && e.response?.data?.error) {
             return { error: e.response.data.error }
         }

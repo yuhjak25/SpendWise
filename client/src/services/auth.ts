@@ -8,7 +8,7 @@ const loginApi = async (loginUserData: UserData) => {
         return res.data
     } catch (e) {
         if (e instanceof AxiosError && e.response?.status === 401) {
-            return { error: 'Invalid email or password' }
+            return { error: 'Unauthorized' }
         }
 
         if (e instanceof AxiosError && e.response?.status === 409) {
@@ -38,6 +38,7 @@ const registerApi = async (registerUserData: UserDataRegister) => {
         if (e instanceof AxiosError && e.response?.data?.error) {
             return { error: e.response.data.error }
         }
+
 
         return { error: 'Something went wrong' }
     }

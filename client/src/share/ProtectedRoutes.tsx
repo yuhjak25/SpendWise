@@ -9,7 +9,7 @@ const ProtectedRoutes = () => {
     const token = Cookies.get('token')
 
     if (!token) {
-      navigate('/login')
+      navigate('/')
     }
   }, [navigate])
 
