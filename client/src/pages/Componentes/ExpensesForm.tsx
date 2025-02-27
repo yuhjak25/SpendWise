@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Expenses } from '../../types'
 import useExpensesActions from '../../hooks/useExpensesActions'
 import useError from '../../hooks/useError'
-import Form from '../../public/Form'
+import Form from '../../share/Form'
 
 const ExpensesForm = () => {
   const [formData, setFormData] = useState<Omit<Expenses, '_id'>>({
