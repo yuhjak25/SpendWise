@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Expenses } from '../../types'
 import useExpensesActions from '../../hooks/useExpensesActions'
 import useError from '../../hooks/useError'
+import Form from '../../public/Form'
 
 const ExpensesForm = () => {
   const [formData, setFormData] = useState<Omit<Expenses, '_id'>>({
@@ -11,6 +12,14 @@ const ExpensesForm = () => {
   })
   const { postExpensesData } = useExpensesActions()
   const { handleError } = useError()
+
+  const handleSubmitExpenses = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target
+    setFormData({
+      ...formData,
+      [name]: type === 'number' ? Number(value) : value,
+    })
+  }
 
   const submitExpenses = async (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -26,45 +35,31 @@ const ExpensesForm = () => {
 
   return (
     <>
-      <form onSubmit={submitExpenses}>
-        <div>
-          <label>Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            required
-          />
-          <label>Description:</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            required
-          />
-          <label>Amount:</label>
-          <input
-            type="number"
-            id="amount"
-            name="amount"
-            min="0"
-            value={formData.amount}
-            onChange={(e) =>
-              setFormData({ ...formData, amount: Number(e.target.value) })
-            }
-            required
-          />
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <Form
+        fields={[
+          {
+            label: 'Category:',
+            name: 'category',
+            type: 'text',
+            required: true,
+          },
+          {
+            label: 'Description:',
+            name: 'description',
+            type: 'text',
+            required: true,
+          },
+          {
+            label: 'Amount:',
+            name: 'amount',
+            type: 'number',
+            required: true,
+          },
+        ]}
+        onSubmit={submitExpenses}
+        onChange={handleSubmitExpenses}
+        values={formData}
+      />
     </>
   )
 }
